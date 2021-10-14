@@ -1,0 +1,23 @@
+{
+  "name": "patoui/test-clickhouse",
+  "authors": [
+    {
+      "name": "Patrique Ouimet",
+      "email": "patrique.ouimet@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.3",
+    "ext-SeasClick": "*",
+    "ext-pdo": "*",
+    "illuminate/database": "^8.19"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src"
+    }
+  }
+}
