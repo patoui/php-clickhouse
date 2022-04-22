@@ -16,7 +16,45 @@ Visit `localhost` or `127.0.0.1`
 
 ## ClickHouse
 
-To access ClickHouse run `docker exec -it -uroot tc_clickhouse /usr/bin/clickhouse --client`
+### Load data
+
+```
+docker exec -it tc_app php scripts/load_clickhouse.php --table=movies
+docker exec -it tc_app php scripts/load_clickhouse.php --table=movie_genres
+docker exec -it tc_app php scripts/load_clickhouse.php --table=ratings
+docker exec -it tc_app php scripts/load_clickhouse.php --table=tags
+```
+
+To access ClickHouse run `docker exec -it -uroot tc_clickhouse /usr/bin/clickhouse --client --database movies`
+
+## MariaDB ColumnStore
+
+To access MariaDB CLI run `docker exec -it tc_mariadb mariadb -D movies`
+
+### Load data
+
+```
+docker exec -it tc_app php scripts/load_mariadb.php --table=movies
+docker exec -it tc_app php scripts/load_mariadb.php --table=movie_genres
+docker exec -it tc_app php scripts/load_mariadb.php --table=ratings
+docker exec -it tc_app php scripts/load_mariadb.php --table=tags
+```
+
+## Run Top 100 Movies Queries
+
+Get the top 100 movies with at least 100 ratings.
+
+ClickHouse (Seasclick extension)
+```
+docker exec -it tc_app php reports/top-100-movies-seasclick.php
+```
+
+
+MariaDB ColumnStore (PDO MySQL)
+```
+docker exec -it tc_app php reports/top-100-movies-mariadb.php
+```
+
 
 #### PHPStorm Note
 
