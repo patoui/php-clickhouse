@@ -10,10 +10,6 @@ This repo will use SeasX/SeasClick C++ extension to run ClickHouse queries.
 docker-compose up
 ```
 
-## Web
-
-Visit `localhost` or `127.0.0.1`
-
 ## ClickHouse
 
 ### Load data
