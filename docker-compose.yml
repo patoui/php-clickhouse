@@ -29,6 +29,8 @@ services:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
     working_dir: /var/www
+    depends_on:
+      - mariadb
     volumes:
       - ./:/var/www
     networks:
@@ -43,6 +45,32 @@ services:
       - ./clickhouse:/var/lib/clickhouse
     networks:
       - app-network
+
+  mariadb:
+    container_name: tc_mariadb
+    image: mariadb/columnstore
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+    volumes:
+      - ./docker/mariadb/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+#   mariadb:
+#     container_name: tc_mariadb
+# #    image: mariadb:latest
+#     build:
+#       context: .
+#       dockerfile: ./docker/mariadb/Dockerfile
+#     restart: always
+#     ports:
+#       - "3306:3306"
+#     environment:
+#       MARIADB_DATABASE: movies
+#       MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+#       USE_S3_STORAGE: 0
+#     networks:
+#       - app-network
 
 #Docker Networks
 networks:

@@ -4,14 +4,21 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-use App\SeasClickConnection;
+$user     = 'admin';
+$password = 'strong_Password123';
 
-$connection = new SeasClickConnection([
-    'host'        => 'tc_clickhouse',
-    'port'        => 9000,
-    'compression' => true,
+$client = new PDO('mysql:host=mariadb;port=3306;charset=utf8mb4', $user, $password, [
+    // Turn off persistent connections
+    PDO::ATTR_PERSISTENT         => false,
+    // Enable exceptions
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    // Emulate prepared statements
+    PDO::ATTR_EMULATE_PREPARES   => true,
+    // Set default fetch mode to array
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    // Set character set
+    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci',
 ]);
-$client = $connection->getClient();
 
 $time_start = microtime(true);
 
@@ -39,7 +46,7 @@ ORDER BY ratings_avg DESC
 LIMIT 100
 SQL;
 
-$movies = $client->select($sql);
+$movies = $client->query($sql);
 
 $file_data = '';
 
@@ -60,4 +67,4 @@ Execution time: {$time} seconds\n
 ENDOUTPUT;
 echo $end_output;
 
-file_put_contents(__DIR__ . '/top_100_clickhouse_output.txt', $file_data);
+file_put_contents(__DIR__ . '/top_100_mariadb_output.txt', $file_data);

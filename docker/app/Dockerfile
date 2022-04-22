@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
     git \
     curl
 
-RUN git clone https://github.com/iliaal/SeasClick.git && cd SeasClick && \
+RUN git clone https://github.com/SeasX/SeasClick.git && cd SeasClick && \
     phpize && ./configure && make && make install
 
 # Clear cache

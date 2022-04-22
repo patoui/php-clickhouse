@@ -3,3 +3,4 @@
 .idea
 /databases/movies/execution_results.txt
 /databases/movies/last_insert_*.txt
+/reports/top_100_*output.txt

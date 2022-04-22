@@ -1,0 +1,2 @@
+GRANT ALL ON *.* TO 'admin'@'%' IDENTIFIED BY 'strong_Password123';
+FLUSH PRIVILEGES;
